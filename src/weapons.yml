@@ -1,20 +1,26 @@
-# Material:defend damage
-# positive + : damage resistance
-# negative - : damage increment
+# 在 armors 中
+# <Material 名稱>:<抵禦傷害數值>
+# 若果數值是正數，則為抵禦傷害值
+# 若果數值為負數，則為傷害增量值
+# ===================================================
+# In armors
+# <Material>:<damage resistance value>
+# if the value is positive (+)or(): damage resistance
+# else if the value is negative (-): damage increment
 
 diamond-armor:
-  # lore: support regex
+  # lore: support regex; 支援 regex 判斷
   lore: "Armor-DIAMOND"
   armors:
-    - DIAMOND_BOOTS:1
-    - DIAMOND_CHESTPLATE:5
-    - DIAMOND_HELMET:2
-    - DIAMOND_LEGGINGS:3
+    - DIAMOND_BOOTS:1.1
+    - DIAMOND_CHESTPLATE:5.2
+    - DIAMOND_HELMET:2.4
+    - DIAMOND_LEGGINGS:3.6
 
 iron-armor:
   lore: "Armor-IRON"
   armors:
-    - IRON_BOOTS:1
-    - IRON_CHESTPLATE:5
-    - IRON_HELMET:2
-    - IRON_LEGGINGS:3
+    - IRON_BOOTS:1.1
+    - IRON_CHESTPLATE:5.2
+    - IRON_HELMET:-2.7
+    - IRON_LEGGINGS:3.3

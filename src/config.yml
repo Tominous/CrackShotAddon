@@ -1,10 +1,20 @@
+# lore 判斷，含有此 標籤 的武器一律被視為 已綁定 武器
+# <owner> 玩家名稱佔位符
+# ============================================
+# if there are any lore contain the tag, it will be treated as bounded weapon
 statrak-tag: "道具主人: <owner>"
 
-prefix: "&a[CrackShotAddon]&7"
+# 插件前綴
+# ==============
+# plugin prefix
+prefix: "&a[CrackShotAddon]&7 "
+
 
 messages:
   not-owner:
     text: "You are not the weapon owner!"
+    # 是否為 Action bar訊息
+    # whether it is action bar message
     action-bar: true
   reload-success:
     text: "Reload Successful"
