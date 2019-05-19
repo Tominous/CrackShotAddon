@@ -4,9 +4,6 @@
 ##### 1.13.2 (spigot)
 ##### Java版本 8
 
-### 原始碼
- https://github.com/free-mc-plugins/CrackShotAddon
-
 ### 下載
  https://drive.google.com/open?id=15RVfsm_qbKCDVRAQPxgxYICSpu6Ui6Mc
 
