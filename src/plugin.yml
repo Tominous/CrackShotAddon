@@ -1,0 +1,14 @@
+name: CrackShotAddon
+main: com.ericlam.mc.crackshot.addon.main.CSAddon
+version: "1.0.0-SNAPSHOT"
+author: Hydranapse_
+api-version: "1.13"
+depend: [CrackShot]
+commands:
+  csa-reload:
+    description: reload command
+    aliases: [csaddon-reload, csa-rel]
+permissions:
+  csa.reload:
+    description: reload permission
+    default: op

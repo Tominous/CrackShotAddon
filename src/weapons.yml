@@ -1,0 +1,20 @@
+# Material:defend damage
+# positive + : damage resistance
+# negative - : damage increment
+
+diamond-armor:
+  # lore: support regex
+  lore: "Armor-DIAMOND"
+  armors:
+    - DIAMOND_BOOT:1
+    - DIAMOND_CHESTPLATE:5
+    - DIAMOND_HELMET:2
+    - DIAMOND_LEGGINS:3
+
+iron-armor:
+  lore: "Armor-IRON"
+  armors:
+    - IRON_BOOT:1
+    - IRON_CHESTPLATE:5
+    - IRON_HELMET:2
+    - IRON_LEGGINS:3

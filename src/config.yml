@@ -1,0 +1,14 @@
+statrak-tag: "道具主人: <owner>"
+
+prefix: "&a[CrackShotAddon]&7"
+
+messages:
+  not-owner:
+    text: "You are not the weapon owner!"
+    action-bar: true
+  reload-success:
+    text: "Reload Successful"
+    action-bar: false
+  no-permission:
+    text: "You don't have permission"
+    action-bar: false
