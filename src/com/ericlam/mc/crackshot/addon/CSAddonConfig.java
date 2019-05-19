@@ -24,6 +24,7 @@ public class CSAddonConfig {
     }
 
     public void loadConfig() {
+        armorDefenderSet.clear();
         for (String key : weapons.getKeys(false)) {
             String lore = weapons.getString(key+"lore");
             Map<Material,Double> defend = new HashMap<>();
