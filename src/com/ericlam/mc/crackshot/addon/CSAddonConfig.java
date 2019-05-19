@@ -14,16 +14,16 @@ import java.util.Set;
 public class CSAddonConfig {
 
     private Set<ArmorDefender> armorDefenderSet = new HashSet<>();
-    private FileConfiguration weapons;
+    private File weaFile;
 
     public CSAddonConfig(CSAddon plugin){
-        File weaFile = new File(plugin.getDataFolder(),"weapons.yml");
+        weaFile = new File(plugin.getDataFolder(), "weapons.yml");
         if (!weaFile.exists()) plugin.saveResource("weapons.yml",true);
-        this.weapons = YamlConfiguration.loadConfiguration(weaFile);
 
     }
 
     public void loadConfig() {
+        FileConfiguration weapons = YamlConfiguration.loadConfiguration(weaFile);
         armorDefenderSet.clear();
         for (String key : weapons.getKeys(false)) {
             String lore = weapons.getString(key + ".lore");

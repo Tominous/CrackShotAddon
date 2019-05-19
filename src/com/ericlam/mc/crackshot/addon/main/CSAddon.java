@@ -7,7 +7,6 @@ import com.shampaggon.crackshot.CSDirector;
 import com.shampaggon.crackshot.events.*;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,22 +25,23 @@ public class CSAddon extends JavaPlugin implements Listener {
 
     private static String statTrakTag;
 
-    private static Set<ArmorDefender> armorSet;
+    private static CSAddon plugin;
 
     public static String getStatTrakTag() {
-        return statTrakTag;
-    }
-
-    public static Set<ArmorDefender> getArmorSet() {
-        return armorSet;
+        return statTrakTag.replaceAll("&[a-fA-F0-9]", "");
     }
 
     public static CSDirector csDirector;
 
     private CSAddonConfig config;
 
+    public static Set<ArmorDefender> getArmorSet() {
+        return plugin.config.getArmorDefenderSet();
+    }
+
     @Override
     public void onEnable() {
+        plugin = this;
         config = new CSAddonConfig(this);
         this.saveDefaultConfig();
         this.reloadConfig();
@@ -53,7 +53,6 @@ public class CSAddon extends JavaPlugin implements Listener {
     public void reloadConfig() {
         super.reloadConfig();
         config.loadConfig();
-        armorSet = config.getArmorDefenderSet();
         statTrakTag = this.getConfig().getString("statrak-tag");
     }
 
@@ -91,15 +90,16 @@ public class CSAddon extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onCrackShotDamage(WeaponDamageEntityEvent e){
-        double origninal_damage = e.getDamage();
+        final double origninal_damage = e.getDamage();
         Player player = e.getPlayer();
-        PlayerInventory inventory = player.getInventory();
-        ItemStack gun = inventory.getItemInMainHand();
+        ItemStack gun = player.getInventory().getItemInMainHand();
         if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
             return;
         }
+        if (!(e.getVictim() instanceof Player)) return;
+        PlayerInventory inventory = ((Player) e.getVictim()).getInventory();
         Optional<ArmorDefender> defenderOptional = Tools.getDefender(gun);
         if (!defenderOptional.isPresent()) return;
         ArmorDefender defender = defenderOptional.get();
@@ -109,15 +109,13 @@ public class CSAddon extends JavaPlugin implements Listener {
             if (armor == null) continue;
             finalDamage -= defender.getDamage(armor.getType());
         }
-        e.setDamage(finalDamage);
+        e.setDamage(finalDamage < 0 ? 0 : finalDamage);
     }
 
     @EventHandler
-    public void onPreShoot(WeaponPreShootEvent e){
+    public void onPreShoot(WeaponPrepareShootEvent e) {
         Player player = e.getPlayer();
         ItemStack gun = player.getInventory().getItemInMainHand();
-        Bukkit.broadcast(Tools.isStatTrak(gun) + "", "csa.debug");
-        Bukkit.broadcast(Tools.isNotOwner(gun, player) + "", "csa.debug");
         if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
