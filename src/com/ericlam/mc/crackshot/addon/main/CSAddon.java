@@ -60,7 +60,7 @@ public class CSAddon extends JavaPlugin implements Listener {
    private void sendMessage(String path, Player sender){
        FileConfiguration config = this.getConfig();
         boolean actionbar = config.getBoolean(path+".action-bar");
-        String message = ChatColor.translateAlternateColorCodes('&',(actionbar ? "" : config.getString("prefix"))+config.getString(path));
+       String message = ChatColor.translateAlternateColorCodes('&', (actionbar ? "" : config.getString("prefix")) + config.getString(path + ".text"));
         sender.spigot().sendMessage(actionbar ? ChatMessageType.ACTION_BAR : ChatMessageType.CHAT, TextComponent.fromLegacyText(message));
    }
 
