@@ -26,9 +26,9 @@ public class CSAddonConfig {
     public void loadConfig() {
         armorDefenderSet.clear();
         for (String key : weapons.getKeys(false)) {
-            String lore = weapons.getString(key+"lore");
+            String lore = weapons.getString(key + ".lore");
             Map<Material,Double> defend = new HashMap<>();
-            for (String line : weapons.getStringList(key + "armors")) {
+            for (String line : weapons.getStringList(key + ".armors")) {
                 String[] l = line.split(":");
                 if (l.length < 2) continue;
                 double damage = Double.parseDouble(l[1]);

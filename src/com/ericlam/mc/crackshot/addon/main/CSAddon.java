@@ -7,6 +7,7 @@ import com.shampaggon.crackshot.CSDirector;
 import com.shampaggon.crackshot.events.*;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -42,8 +43,8 @@ public class CSAddon extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         config = new CSAddonConfig(this);
-        super.saveDefaultConfig();
-        super.reloadConfig();
+        this.saveDefaultConfig();
+        this.reloadConfig();
         csDirector = (CSDirector) CSDirector.getProvidingPlugin(CSDirector.class);
         this.getServer().getPluginManager().registerEvents(this,this);
     }
@@ -94,7 +95,7 @@ public class CSAddon extends JavaPlugin implements Listener {
         Player player = e.getPlayer();
         PlayerInventory inventory = player.getInventory();
         ItemStack gun = inventory.getItemInMainHand();
-        if (Tools.isStatTrak(gun) && Tools.isOwner(gun,player)){
+        if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
             return;
@@ -115,7 +116,9 @@ public class CSAddon extends JavaPlugin implements Listener {
     public void onPreShoot(WeaponPreShootEvent e){
         Player player = e.getPlayer();
         ItemStack gun = player.getInventory().getItemInMainHand();
-        if (Tools.isStatTrak(gun) && Tools.isOwner(gun,player)){
+        Bukkit.broadcast(Tools.isStatTrak(gun) + "", "csa.debug");
+        Bukkit.broadcast(Tools.isNotOwner(gun, player) + "", "csa.debug");
+        if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
         }
@@ -125,7 +128,7 @@ public class CSAddon extends JavaPlugin implements Listener {
     public void onAttachToggle(WeaponAttachmentToggleEvent e){
         Player player = e.getPlayer();
         ItemStack gun = player.getInventory().getItemInMainHand();
-        if (Tools.isStatTrak(gun) && Tools.isOwner(gun,player)){
+        if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
         }
@@ -135,7 +138,7 @@ public class CSAddon extends JavaPlugin implements Listener {
     public void onWeaponScope(WeaponScopeEvent e){
         Player player = e.getPlayer();
         ItemStack gun = player.getInventory().getItemInMainHand();
-        if (Tools.isStatTrak(gun) && Tools.isOwner(gun,player)){
+        if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
         }
@@ -146,7 +149,7 @@ public class CSAddon extends JavaPlugin implements Listener {
         Player player = e.getPlayer();
         if (!player.isOnline()) return;
         ItemStack gun = player.getInventory().getItemInMainHand();
-        if (Tools.isStatTrak(gun) && Tools.isOwner(gun,player)){
+        if (Tools.isStatTrak(gun) && Tools.isNotOwner(gun, player)) {
             e.setCancelled(true);
             this.sendMessage("messages.not-owner",player);
         }
