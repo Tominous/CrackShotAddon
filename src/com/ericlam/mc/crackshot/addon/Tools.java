@@ -20,7 +20,7 @@ public class Tools {
     public static boolean isStatTrak(ItemStack item){
         if (item.getItemMeta() == null) return false;
         ItemMeta meta = item.getItemMeta();
-        String tag = ".*" + CSAddon.getStatTrakTag().replace("<owner>", "(?<owner>.+)");
+        String tag = ".*" + CSAddon.getStatTrakTag().replace("<owner>", "(?<owner>.+)") + ".*";
         List<String> lores = meta.getLore();
         return lores.stream().anyMatch(l -> l.replaceAll("§[a-fA-F0-9]", "").matches(tag));
     }
